@@ -22,13 +22,13 @@ jobs:
       - name: Setup PHP runtime
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.3
+          php-version: 8.3
           coverage: "none"
 
       - name: Lint PHP files
         id: lint
         run: |
-          curl -Ls https://github.com/overtrue/phplint/releases/3.3.2/download/phplint.phar -o /usr/local/bin/phplint
+          curl -Ls https://github.com/overtrue/phplint/releases/latest/download/phplint.phar -o /usr/local/bin/phplint
           chmod +x /usr/local/bin/phplint
           Result=$(/usr/local/bin/phplint --no-cache --no-progress -v -q --exclude=vendor --log-json)
           {
