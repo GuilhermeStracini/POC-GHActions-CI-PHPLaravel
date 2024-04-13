@@ -38,5 +38,6 @@ jobs:
           } >> $GITHUB_OUTPUT                
 
       - name: Show output
+        if: always()
         run: |
           echo -e "${{ steps.lint.outputs.result }}"
