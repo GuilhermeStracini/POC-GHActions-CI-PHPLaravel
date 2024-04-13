@@ -6,21 +6,12 @@ on:
 
 jobs:
   build:
-    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - uses: dorny/paths-filter@v3
-        id: changes
-        with:
-          filters: |
-            src:
-              - "src/**"
-              - "tests/**"
 
       - name: Cache Composer dependencies
         uses: actions/cache@v4
@@ -31,14 +22,9 @@ jobs:
       - name: Install dependencies
         uses: "php-actions/composer@v6"
         with:
-          dev: no
+          dev: yes
           progress: yes
-          working_dir: "./Src/api/v1"
 
-      - name: Install dependencies
-        uses: "php-actions/composer@v6"
-        with:
-          php_extensions: sockets
-          dev: no
-          progress: yes
-          working_dir: "./src"
+      - name: Run tests
+        run: |
+          php -d memory_limit=-1 vendor/bin/phpunit --configuration phpunit.xml
