@@ -40,4 +40,4 @@ jobs:
 
       - name: Show output
         run: |
-          echo ${{ steps.lint.outputs.result }}
+          echo "${{ steps.lint.outputs.result }}"
