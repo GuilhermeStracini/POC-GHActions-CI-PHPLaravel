@@ -1,0 +1,64 @@
+name: Deploy via ftp
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to FTP
+    runs-on: ubuntu-latest
+    outputs:
+      semVer: ${{ steps.gitversion.outputs.semVer }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            src:
+              - "src/**"
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v1
+        with:
+          versionSpec: "5.x"
+
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v1
+        with:
+          useConfigFile: true
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        if: ${{ steps.changes.outputs.src == 'true' }}
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: Install dependencies
+        uses: "php-actions/composer@v6"
+        if: ${{ steps.changes.outputs.src == 'true' }}
+        with:
+          php_extensions: sockets
+          dev: no
+          progress: yes
+          working_dir: "./src"
+
+      - name: Upload service
+        uses: sebastianpopp/ftp-action@releases/v2
+        with:
+          host: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          localDir: "Src/service"
+          remoteDir: "/"
