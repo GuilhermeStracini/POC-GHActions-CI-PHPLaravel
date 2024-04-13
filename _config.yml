@@ -1,0 +1,4 @@
+theme: jekyll-theme-dinky
+title: PoC Laravel (PHP) - GitHub Actions CI pipeline
+description: 🔬 Proof of Concept of a Laravel (PHP) project using GitHub Actions for build, testing, and deploy
+show_downloads: true
