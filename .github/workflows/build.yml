@@ -26,6 +26,15 @@ jobs:
           dev: yes
           progress: yes
 
-      - name: Run tests
-        run: |
-          php -d memory_limit=-1 vendor/bin/phpunit --configuration phpunit.xml
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit@v3
+        with:
+          version: 11
+          php_version: 8.3
+          php_extensions: xdebug
+          coverage_cobertura: coverage.xml
+          configuration: phpunit.xml
+          test_suffix: Test.php
+          args: --coverage-filter tests
+        env:
+          XDEBUG_MODE: coverage

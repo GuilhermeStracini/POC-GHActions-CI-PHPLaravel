@@ -44,6 +44,19 @@ jobs:
           dev: no
           progress: yes
 
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit@v3
+        with:
+          version: 11
+          php_version: 8.3
+          php_extensions: xdebug
+          coverage_cobertura: coverage.xml
+          configuration: phpunit.xml
+          test_suffix: Test.php
+          args: --coverage-filter tests
+        env:
+          XDEBUG_MODE: coverage
+
       - name: Upload service
         uses: sebastianpopp/ftp-action@releases/v2
         with:
