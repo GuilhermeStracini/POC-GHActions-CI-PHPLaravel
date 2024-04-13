@@ -13,6 +13,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup PHP runtime
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: "none"
+
       - name: Cache Composer dependencies
         uses: actions/cache@v4
         with:
@@ -22,7 +27,6 @@ jobs:
       - name: Install dependencies
         uses: "php-actions/composer@v6"
         with:
-          php_version: "8.3"
           dev: yes
           progress: yes
 
