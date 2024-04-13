@@ -26,6 +26,9 @@ jobs:
           dev: yes
           progress: yes
 
+      - name: Set up environment
+        run: php artisan key:generate
+
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
         with:
