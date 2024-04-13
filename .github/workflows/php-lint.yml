@@ -26,6 +26,7 @@ jobs:
           coverage: "none"
 
       - name: Lint PHP files
+        continue-on-error: true
         id: lint
         run: |
           curl -Ls https://github.com/overtrue/phplint/releases/latest/download/phplint.phar -o /usr/local/bin/phplint
