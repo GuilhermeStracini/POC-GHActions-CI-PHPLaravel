@@ -44,12 +44,17 @@ jobs:
               echo "EOF"
             }  >> "$GITHUB_OUTPUT"
           fi
-          
-      - name: Show output
-        if: always()
-        run: |
-          eho -e "${{ steps.lint.outputs.success }}"
-          echo -e "${{ steps.lint.outputs.failures }}"
+
+      - name: Update PR with comment (lint succeeded)
+        if: success() && steps.lint.outputs.success == 'true'
+        uses: mshick/add-pr-comment@v2
+        with:
+          refresh-message-position: true
+          message-id: "lint-result"
+          message: |
+            :mag: **Lint summary**
+
+            :white_check_mark: Lint check passed.
 
       - name: Update PR with comment (lint failed)
         if: failure() && steps.lint.outputs.success == 'false'
