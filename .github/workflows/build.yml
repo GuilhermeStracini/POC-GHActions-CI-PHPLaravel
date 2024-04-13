@@ -31,7 +31,9 @@ jobs:
           progress: yes
 
       - name: Set up environment
-        run: php artisan key:generate
+        run: |
+          run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+          php artisan key:generate
 
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
