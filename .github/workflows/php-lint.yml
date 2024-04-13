@@ -50,3 +50,17 @@ jobs:
         run: |
           eho -e "${{ steps.lint.outputs.success }}"
           echo -e "${{ steps.lint.outputs.failures }}"
+
+      - name: Update PR with comment (lint failed)
+        if: failure() && steps.lint.outputs.success == 'false'
+        uses: mshick/add-pr-comment@v2
+        with:
+          refresh-message-position: true
+          message-id: "lint-result"
+          message: |
+            :mag: **Lint summary**
+
+            :x: The PHP lint check failed.\
+            ```json
+              ${{ steps.lint.outputs.failures }}
+            ```
