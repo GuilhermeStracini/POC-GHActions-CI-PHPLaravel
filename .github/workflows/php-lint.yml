@@ -40,7 +40,7 @@ jobs:
             echo "success=false" >>"$GITHUB_OUTPUT"
             {
               echo "failures<<EOF"
-              echo -e "$FAILURES"
+              echo -e "$Failures"
               echo "EOF"
             }  >> "$GITHUB_OUTPUT"
           fi
