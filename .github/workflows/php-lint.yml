@@ -60,7 +60,7 @@ jobs:
           message: |
             :mag: **Lint summary**
 
-            :x: The PHP lint check failed.\
+            :x: The PHP lint check failed.
             ```json
             ${{ steps.lint.outputs.failures }}
             ```
