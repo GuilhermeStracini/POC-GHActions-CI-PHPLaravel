@@ -32,9 +32,10 @@ jobs:
           curl -Ls https://github.com/overtrue/phplint/releases/latest/download/phplint.phar -o /usr/local/bin/phplint
           chmod +x /usr/local/bin/phplint
           Result=$(/usr/local/bin/phplint --no-cache --no-progress -v -q --exclude=vendor --log-json --ignore-exit-code)
-          IF [ jq ".status" -eq "success" ]; THEN
+          Status=$(echo $Result | jq -r ".status")
+          if [ "$Status" == "success" ]; THEN
             echo "success=true" >> "$GITHUB_OUTPUT"
-          ELSE
+          else
             echo "success=false" >> "$GITHUB_OUTPUT"
             FAILURES=$(jq ".failures")
             {
@@ -42,7 +43,7 @@ jobs:
               echo -e "$FAILURES"
               echo "EOF"
             }  >> "$GITHUB_OUTPUT"
-          FI
+          fi
           
       - name: Show output
         if: always()
