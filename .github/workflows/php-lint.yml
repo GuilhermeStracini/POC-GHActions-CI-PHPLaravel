@@ -14,8 +14,57 @@ jobs:
 
     steps:
 
-        - name: Checkout code
-          uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-        - name: Check PHP Lint
-          uses: michaelw90/PHP-Lint@master
+      - name: Setup PHP runtime
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: "none"
+
+      - name: Lint PHP files
+        continue-on-error: true
+        id: lint
+        run: |
+          curl -Ls https://github.com/overtrue/phplint/releases/latest/download/phplint.phar -o /usr/local/bin/phplint
+          chmod +x /usr/local/bin/phplint
+          Result=$(/usr/local/bin/phplint --no-cache --no-progress -v -q --exclude=vendor --log-json --ignore-exit-code)
+          Status=$(echo $Result | jq -r ".status")
+          Failures=$(echo $Result | jq -r ".failures")
+          if [ "$Status" == "success" ]; then
+            echo "success=true" >>"$GITHUB_OUTPUT"
+          else
+            echo "success=false" >>"$GITHUB_OUTPUT"
+            {
+              echo "failures<<EOF"
+              echo -e "$Failures"
+              echo "EOF"
+            }  >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update PR with comment (lint succeeded)
+        if: success() && steps.lint.outputs.success == 'true'
+        uses: mshick/add-pr-comment@v2
+        with:
+          refresh-message-position: true
+          message-id: "lint-result"
+          message: |
+            :mag: **Lint summary**
+
+            :white_check_mark: Lint check passed.
+
+      - name: Update PR with comment (lint failed)
+        if: failure() && steps.lint.outputs.success == 'false'
+        uses: mshick/add-pr-comment@v2
+        with:
+          refresh-message-position: true
+          message-id: "lint-result"
+          message: |
+            :mag: **Lint summary**
+
+            :x: The PHP lint check failed.
+            ```json
+            ${{ steps.lint.outputs.failures }}
+            ```
