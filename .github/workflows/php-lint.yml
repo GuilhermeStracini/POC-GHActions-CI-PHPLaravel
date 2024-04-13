@@ -62,5 +62,5 @@ jobs:
 
             :x: The PHP lint check failed.\
             ```json
-              ${{ steps.lint.outputs.failures }}
+            ${{ steps.lint.outputs.failures }}
             ```
