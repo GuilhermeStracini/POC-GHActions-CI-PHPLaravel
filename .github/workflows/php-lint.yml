@@ -19,13 +19,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Lint PHP files
-        uses: overtrue/phplint@main
-        id: lint
+      - name: Setup PHP runtime
+        uses: shivammathur/setup-php@v2
         with:
-          path: .
-          options: --exclude=vendor --log-json=$GITHUB_OUTPUT
+          php-version: 8.3
+          coverage: "none"
 
+      - name: Lint PHP files
+        id: lint
+        run: |
+          curl -Ls https://github.com/overtrue/phplint/releases/latest/download/phplint.phar -o /usr/local/bin/phplint
+          chmod +x /usr/local/bin/phplint
+          echo "result=$(/usr/local/bin/phplint --no-cache --no-progress -v --exclude=vendor --log-json)" >> "$GITHUB_OUTPUT"
+          
       - name: Show output
         run: |
-          echo ${{ steps.lint.output }}
+          echo ${{ steps.lint.output.result }}
