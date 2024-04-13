@@ -7,7 +7,6 @@
 [![Build & Bump Version](https://github.com/GuilhermeStracini/POC-GHActions-CI-PHPLaravel/actions/workflows/build-bump-version.yml/badge.svg)](https://github.com/GuilhermeStracini/POC-GHActions-CI-PHPLaravel/actions/workflows/build-bump-version.yml)
 [![Build & Deploy](https://github.com/GuilhermeStracini/POC-GHActions-CI-PHPLaravel/actions/workflows/build-deploy.yml/badge.svg)](https://github.com/GuilhermeStracini/POC-GHActions-CI-PHPLaravel/actions/workflows/build-deploy.yml)
 [![Linter check](https://github.com/GuilhermeStracini/POC-GHActions-CI-PHPLaravel/actions/workflows/linter.yml/badge.svg)](https://github.com/GuilhermeStracini/POC-GHActions-CI-PHPLaravel/actions/workflows/linter.yml)
-[![Update packages](https://github.com/GuilhermeStracini/POC-GHActions-CI-PHPLaravel/actions/workflows/update-packages.yml/badge.svg)](https://github.com/GuilhermeStracini/POC-GHActions-CI-PHPLaravel/actions/workflows/update-packages.yml)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/83c1d6f45041d9d67d30/maintainability)](https://codeclimate.com/github/GuilhermeStracini/POC-GHActions-CI-PHPLaravel/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/83c1d6f45041d9d67d30/test_coverage)](https://codeclimate.com/github/GuilhermeStracini/POC-GHActions-CI-PHPLaravel/test_coverage)
