@@ -21,6 +21,11 @@ jobs:
 
       - name: Lint PHP files
         uses: overtrue/phplint@main
+        id: lint
         with:
           path: .
-          options: --exclude=vendor --log-json
+          options: --exclude=vendor --log-json=$GITHUB_OUTPUT
+
+      - name: Show output
+        run: |
+          echo ${{ steps.lint.output }}
