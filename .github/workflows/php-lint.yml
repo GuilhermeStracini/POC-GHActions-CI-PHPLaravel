@@ -30,7 +30,7 @@ jobs:
         run: |
           curl -Ls https://github.com/overtrue/phplint/releases/latest/download/phplint.phar -o /usr/local/bin/phplint
           chmod +x /usr/local/bin/phplint
-          Result=$(/usr/local/bin/phplint --no-cache --no-progress -v -q --exclude=vendor --log-json)
+          Result=$(/usr/local/bin/phplint --no-cache --no-progress -v -q --exclude=vendor --log-json) | jq ".failures"
           {
             echo "result<<EOF"
             echo -e "$Result"
@@ -40,4 +40,4 @@ jobs:
 
       - name: Show output
         run: |
-          echo "${{ steps.lint.outputs.result }}"
+          echo -e "${{ steps.lint.outputs.result }}"
