@@ -30,8 +30,7 @@ jobs:
         run: |
           curl -Ls https://github.com/overtrue/phplint/releases/latest/download/phplint.phar -o /usr/local/bin/phplint
           chmod +x /usr/local/bin/phplint
-          Result=$(/usr/local/bin/phplint --no-cache --no-progress -v --exclude=vendor --log-json)
-          echo "result=$Result" >> "$GITHUB_OUTPUT"
+          /usr/local/bin/phplint --no-cache --no-progress -v --exclude=vendor --log-json         
           
       - name: Show output
         run: |
