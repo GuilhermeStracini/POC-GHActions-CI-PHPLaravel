@@ -35,9 +35,9 @@ jobs:
             echo "result<<EOF"
             echo -e "$Result"
             echo "EOF"
-          } >>"$GITHUB_OUTPUT"
+          } >> $GITHUB_OUTPUT
                 
 
       - name: Show output
         run: |
-          echo ${{ steps.lint.output.result }}
+          echo ${{ steps.lint.outputs.result }}
