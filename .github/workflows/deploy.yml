@@ -44,7 +44,7 @@ jobs:
           progress: yes
 
       - name: PHPUnit Tests
-        uses: php-actions/phpunit@v3
+        uses: php-actions/phpunit@v7
         with:
           version: 11
           php_version: 8.3
