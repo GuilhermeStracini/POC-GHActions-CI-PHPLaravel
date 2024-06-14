@@ -31,6 +31,11 @@ jobs:
         with:
           useConfigFile: true
 
+      - name: Setup PHP runtime
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: "none"
+
       - name: Cache Composer dependencies
         uses: actions/cache@v4
         with:
@@ -42,6 +47,11 @@ jobs:
         with:
           dev: no
           progress: yes
+
+      - name: Set up environment
+        run: |
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          php artisan key:generate
 
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v3
