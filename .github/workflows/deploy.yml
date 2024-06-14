@@ -45,7 +45,7 @@ jobs:
       - name: Install dependencies
         uses: "php-actions/composer@v6"
         with:
-          dev: no
+          dev: yes
           progress: yes
 
       - name: Set up environment
@@ -66,9 +66,9 @@ jobs:
         env:
           XDEBUG_MODE: coverage
 
-      - name: Upload service
-        uses: sebastianpopp/ftp-action@releases/v2
-        with:
-          host: test.rebex.net
-          user: demo
-          password: password
+      # - name: Upload service
+      #   uses: sebastianpopp/ftp-action@releases/v2
+      #   with:
+      #     host: test.rebex.net
+      #     user: demo
+      #     password: password
