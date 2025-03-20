@@ -12,11 +12,19 @@
             <directory>tests/Feature</directory>
         </testsuite>
     </testsuites>
+
+    <coverage cacheDirectory="build/phpunit-cache">
+        <include>
+            <directory>app</directory>
+        </include>
+    </coverage>
+
     <source>
         <include>
             <directory>app</directory>
         </include>
     </source>
+
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>
