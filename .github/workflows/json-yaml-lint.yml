@@ -1,5 +1,4 @@
 name: JSON/YAML validation
-
 on:
   push:
     branches:
@@ -9,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   json-yaml-validate:
