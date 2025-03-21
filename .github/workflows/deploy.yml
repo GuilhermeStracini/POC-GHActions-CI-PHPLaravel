@@ -72,7 +72,7 @@ jobs:
           host: ${{ secrets.FTP_SERVER }}
           user: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          localDir: "poc-php-mvc"
+          localDir: "/"
           remoteDir: "/"
           options: "--delete"
 
