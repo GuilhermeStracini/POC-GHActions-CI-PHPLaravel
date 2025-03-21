@@ -66,9 +66,31 @@ jobs:
         env:
           XDEBUG_MODE: coverage
 
-      # - name: Upload service
-      #   uses: sebastianpopp/ftp-action@releases/v2
-      #   with:
-      #     host: test.rebex.net
-      #     user: demo
-      #     password: password
+      - name: Upload service
+        uses: sebastianpopp/ftp-action@releases/v2
+        with:
+          host: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          localDir: "poc-php-mvc"
+          remoteDir: "/"
+          options: "--delete"
+
+  create_release:
+    name: Create release
+    needs: deploy
+    env:
+      SEMVER: ${{ needs.deploy.outputs.semVer }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release
+        uses: ncipollo/release-action@v1.16.0
+        with:
+          allowUpdates: false
+          skipIfReleaseExists: true
+          draft: false
+          makeLatest: true
+          tag: v${{ env.SEMVER }}
+          name: Release v${{ env.SEMVER }}
+          generateReleaseNotes: true
+          body: Release ${{ env.SEMVER }} of ${{ github.event.repository.name }}
