@@ -51,7 +51,7 @@ jobs:
       - name: Set up environment
         run: |
           php -r "file_exists('.env') || copy('.env.example', '.env');"
-          php artisan key:generate
+          php src/artisan key:generate
 
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v4
