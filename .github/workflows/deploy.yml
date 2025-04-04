@@ -66,6 +66,10 @@ jobs:
         env:
           XDEBUG_MODE: coverage
 
+      - name: Create SQLite database file
+        run: |
+          touch database/database.sqlite
+
       - name: Zip files
         run: |
           zip -r deploy.zip . -x install.php
