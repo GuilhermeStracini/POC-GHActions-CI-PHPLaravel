@@ -68,14 +68,17 @@ jobs:
 
       - name: Create SQLite database file
         run: |
-          touch database/database.sqlite
+          touch src/database/database.sqlite
 
       - name: Zip files
         run: |
+          mv .env src
+          cd src
           zip -r deploy.zip . -x install.php
+          cd ..
           mkdir deploy
-          mv deploy.zip deploy
-          cp "install.php" deploy
+          mv src/deploy.zip deploy
+          cp "src/install.php" deploy
 
       - name: Upload service
         uses: sebastianpopp/ftp-action@releases/v2
