@@ -18,7 +18,7 @@ jobs:
 
             - name: Install DeepSource scanner
               run: curl https://deepsource.io/cli | sh
-            
+
             - name: Setup PHP runtime
               uses: shivammathur/setup-php@v2
               with:
@@ -36,7 +36,7 @@ jobs:
             - name: Set up environment
               run: |
                 php -r "file_exists('.env') || copy('.env.example', '.env');"
-                php artisan key:generate
+                php src/artisan key:generate
 
             - name: PHPUnit Tests
               uses: php-actions/phpunit@v4
