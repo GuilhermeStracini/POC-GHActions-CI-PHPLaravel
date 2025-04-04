@@ -44,6 +44,6 @@ jobs:
           coverage_cobertura: coverage.xml
           configuration: phpunit.xml
           test_suffix: Test.php
-          args: --coverage-filter tests --cache-result-file=build/phpunit-cache/.phpunit.result.cache
+          args: --coverage-filter tests
         env:
           XDEBUG_MODE: coverage
