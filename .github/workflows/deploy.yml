@@ -66,11 +66,6 @@ jobs:
         env:
           XDEBUG_MODE: coverage
 
-      - name: Create version file for API
-        run: |
-          cd Src       
-          echo ${{ env.fullSemVer }} > version.txt
-
       - name: Zip files
         run: |
           zip -r deploy.zip . -x install.php
