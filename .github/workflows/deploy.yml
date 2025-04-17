@@ -85,7 +85,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           localDir: "deploy/"
           remoteDir: "/"
-          options: "--delete"
 
       - name: Call installation endpoint
         run: curl --fail-with-body "${{ secrets.INSTALLATION_ENDPOINT }}install.php"
