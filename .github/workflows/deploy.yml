@@ -77,17 +77,17 @@ jobs:
           mv deploy.zip deploy
           cp "install.php" deploy
 
-      - name: Upload service
-        uses: sebastianpopp/ftp-action@releases/v2
-        with:
-          host: ${{ secrets.FTP_SERVER }}
-          user: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          localDir: "deploy/"
-          remoteDir: "/"
+      # - name: Upload service
+      #   uses: sebastianpopp/ftp-action@releases/v2
+      #   with:
+      #     host: ${{ secrets.FTP_SERVER }}
+      #     user: ${{ secrets.FTP_USERNAME }}
+      #     password: ${{ secrets.FTP_PASSWORD }}
+      #     localDir: "deploy/"
+      #     remoteDir: "/"
 
-      - name: Call installation endpoint
-        run: curl --fail-with-body "${{ secrets.INSTALLATION_ENDPOINT }}install.php"
+      # - name: Call installation endpoint
+      #   run: curl --fail-with-body "${{ secrets.INSTALLATION_ENDPOINT }}install.php"
 
   create_release:
     name: Create release
