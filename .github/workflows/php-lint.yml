@@ -46,7 +46,7 @@ jobs:
 
       - name: Update PR with comment (lint succeeded)
         if: success() && steps.lint.outputs.success == 'true' && github.actor != 'dependabot[bot]'
-        uses: mshick/add-pr-comment@v2
+        uses: mshick/add-pr-comment@v3
         with:
           refresh-message-position: true
           message-id: "lint-result"
@@ -57,7 +57,7 @@ jobs:
 
       - name: Update PR with comment (lint failed)
         if: failure() && steps.lint.outputs.success == 'false' && github.actor != 'dependabot[bot]'
-        uses: mshick/add-pr-comment@v2
+        uses: mshick/add-pr-comment@v3
         with:
           refresh-message-position: true
           message-id: "lint-result"
